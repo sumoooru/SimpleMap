@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements
             Manifest.permission.ACCESS_FINE_LOCATION
     };
     private final static int REQCODE_PERMISSIONS = 1111;
+
+    private LatLng lt = new LatLng(0, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +124,14 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "onLocationChanged: " + location);
+//        googleMap.animateCamera(CameraUpdateFactory
+//                .newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+        lt = new LatLng(location.getLatitude(), location.getLongitude());
+    }
+
+    public void moveCur(View view){
         googleMap.animateCamera(CameraUpdateFactory
-                .newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+                .newLatLng(lt));
     }
 
     @Override
